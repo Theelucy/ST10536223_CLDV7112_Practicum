@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center py-5">
+    <h1 class="display-4 text-agristream mb-4">Welcome to AgriStreamIOT</h1>
+    <p class="lead mb-4">Smart Agriculture Management System</p>
+    <p class="mb-3">Monitor and manage your agricultural fields with real-time IoT sensor data and intelligent irrigation control.</p>
+    <hr class="my-4" />
+    <p class="text-muted mb-4">
+        AgriStreamIOT provides comprehensive solutions for modern farming:
+    </p>
+    <div class="row mt-5">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-agristream">📊 Real-Time Monitoring</h5>
+                    <p class="card-text">Track soil moisture, temperature, humidity, and other crucial metrics from your fields in real-time.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-agristream">💧 Smart Irrigation</h5>
+                    <p class="card-text">Control irrigation systems remotely with intelligent scheduling based on sensor data and weather patterns.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-agristream">🚁 Drone Analytics</h5>
+                    <p class="card-text">Analyze aerial imagery from drones to monitor crop health, detect anomalies, and optimize field management.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-5 pt-4">
+        <a href="@Url.Action("Dashboard", "AgriStream")" class="btn btn-agristream btn-lg">
+            <i class="bi bi-speedometer2"></i> Go to Dashboard
+        </a>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+{
+  "version": "2.0",
+  "extensions": {
+    "queues": {
+      "messageEncoding": "base64",
+      "batchSize": 16,
+      "newBatchThreshold": 8,
+      "maxDequeueCount": 5
+    }
+  }
+}

@@ -1,0 +1,141 @@
+@model IEnumerable<AgriStreamIOT.Data.Field>
+@using AgriStreamIOT.Mvc.Services
+@{
+    ViewData["Title"] = "AgriStream Dashboard";
+    var telemetryData = ViewData["TelemetryData"] as List<TelemetryData> ?? new List<TelemetryData>();
+}
+
+<div class="container-fluid mt-4">
+    <h2 class="text-agristream mb-4">
+        <i class="bi bi-speedometer2"></i> AgriStream IoT Dashboard
+    </h2>
+
+    @if (TempData["Message"] is string message)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @message
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+    @if (TempData["Error"] is string error)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @error
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h3 class="text-agristream">?? Real-Time Telemetry Data</h3>
+            @if (telemetryData.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Device</th>
+                                <th>Field</th>
+                                <th>Status</th>
+                                <th>Temperature (°C)</th>
+                                <th>Humidity (%)</th>
+                                <th>Last Updated</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var telemetry in telemetryData)
+                            {
+                                <tr>
+                                    <td><strong>@telemetry.DeviceName</strong></td>
+                                    <td>@telemetry.FieldName</td>
+                                    <td>
+                                        @if (telemetry.Status == "Healthy")
+                                        {
+                                            <span class="badge bg-success">? @telemetry.Status</span>
+                                        }
+                                        else if (telemetry.Status == "Irrigation Active")
+                                        {
+                                            <span class="badge bg-info">?? @telemetry.Status</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-warning">? @telemetry.Status</span>
+                                        }
+                                    </td>
+                                    <td>@telemetry.Temperature.ToString("F1")</td>
+                                    <td>@telemetry.Humidity.ToString("F1")</td>
+                                    <td>@telemetry.LastUpdated.ToString("g")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info">No telemetry data available yet. Please ensure Azure Functions are running.</div>
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-agristream">?? Field Management & Irrigation Control</h3>
+            @if (Model.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Field</th>
+                                <th>Owner</th>
+                                <th>Location</th>
+                                <th>Devices</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var field in Model)
+                            {
+                                <tr>
+                                    <td><strong>@field.Name</strong></td>
+                                    <td>@field.Owner?.Username</td>
+                                    <td>@field.Location</td>
+                                    <td>
+                                        @foreach (var device in field.Devices)
+                                        {
+                                            <div class="mb-2">
+                                                <span class="badge bg-secondary">@device.DeviceName</span>
+                                                <small>(@device.Status)</small>
+                                            </div>
+                                        }
+                                    </td>
+                                    <td>
+                                        @foreach (var device in field.Devices)
+                                        {
+                                            <form method="post" asp-controller="AgriStream" asp-action="SendIrrigationCommand" class="mb-2">
+                                                <input type="hidden" name="deviceName" value="@device.DeviceName" />
+                                                <div class="input-group input-group-sm">
+                                                    <select name="action" class="form-select form-select-sm">
+                                                        <option value="Start">?? Start</option>
+                                                        <option value="Stop">? Stop</option>
+                                                    </select>
+                                                    <input type="number" name="durationMinutes" value="30" min="1" class="form-control form-control-sm" style="max-width: 80px;" />
+                                                    <button class="btn btn-sm btn-agristream" type="submit">Queue</button>
+                                                </div>
+                                            </form>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info">No fields available. Please add fields first.</div>
+            }
+        </div>
+    </div>
+</div>

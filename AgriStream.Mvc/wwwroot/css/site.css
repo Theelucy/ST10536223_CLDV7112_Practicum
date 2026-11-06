@@ -1,0 +1,52 @@
+html {
+  font-size: 14px;
+  position: relative;
+  min-height: 100%;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+body {
+  margin-bottom: 60px;
+  background-color: #f8f9fa;
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #2d8659;
+}
+
+/* Agricultural IoT Theme Colors */
+.bg-agristream {
+  background: linear-gradient(135deg, #2d8659 0%, #1a4d2e 100%) !important;
+}
+
+.btn-agristream {
+  background-color: #2d8659;
+  border-color: #2d8659;
+  color: white;
+}
+
+.btn-agristream:hover {
+  background-color: #1a4d2e;
+  border-color: #1a4d2e;
+}
+
+.text-agristream {
+  color: #2d8659;
+}
+
+.badge-agristream {
+  background-color: #2d8659;
+}
+
+.footer {
+  margin-top: auto;
+}
+
+a.text-white:hover {
+  color: #e0e0e0 !important;
+}
