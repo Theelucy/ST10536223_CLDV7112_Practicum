@@ -181,20 +181,20 @@ Log audit to Table Storage (SensorTelemetry)
 
 ### ?? SENSITIVE DATA ALERT
 
-**?? YOUR CREDENTIALS ARE EXPOSED IN THIS REPO!**
+**?? YOUR CREDENTIALS SHOULD NEVER BE COMMITTED TO THIS REPO!**
 
 If this is a real production account, you MUST:
 
-1. **IMMEDIATELY** rotate the SQL password:
+1. **Rotate the SQL password**
    ```
-   Current User: nkhensani
-   Current Password: katekoM@18
+   Current User: <your-user>
+   Current Password: <your-password>
    ```
    - Go to Azure Portal ? SQL Server ? Reset password
 
-2. **IMMEDIATELY** rotate the Azure Storage Account Key:
+2. **Rotate the Azure Storage Account Key**
    ```
-   Current Key: ODf3Jgm+6q21uoGbz/OKzFMLENkaI/jjjvEHMkpt+vI2Pt+P8Zgsr8Mc+Yw7Cg4Dm/hoDpZxIPd2+AStw5tIXA==
+   Current Key: <your-storage-account-key>
    ```
    - Go to Azure Portal ? Storage Account ? Access Keys ? Regenerate
 
